@@ -425,7 +425,7 @@ class Worksheet(xmlwriter.XMLwriter):
         except ValueError:
             pass
         except TypeError:
-            raise TypeError("Unsupported type %s in write()" % type(token))
+            pass
 
         # Finally try string.
         try:
@@ -452,6 +452,10 @@ class Worksheet(xmlwriter.XMLwriter):
 
         """
         str_error = 0
+
+        # Make sure the value is a 'real' string, not just something else that
+        # implements __str__
+        string = str(string)
 
         # Check that row and col are valid and store max and min values.
         if self._check_dimensions(row, col):
